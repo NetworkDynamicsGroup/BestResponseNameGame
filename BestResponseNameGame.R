@@ -1,10 +1,8 @@
-################################################
-################################################
-### THIS MODEL WAS CONCEIVED AND WRITTEN BY  ###
-###   JOSHUA BECKER www.joshua-becker.com    ###
-################################################
-################################################
-
+###########################################################
+####                                                   ####
+###   WRITTEN BY JOSHUA BECKER www.joshua-becker.com    ###
+####                                                   ####
+###########################################################
 rm(list=ls())
 library(igraph)
 
@@ -26,37 +24,26 @@ if( !file.exists(filename) ) {
 ### WHEN BOTH SOLUTIONS OFFER EQUAL PAYFFF
 ### pstar = 0.5
 bestresponse = function(memory, pstar) {
+  
+  ## FOR A DEFINITION OF BEST RESPONSE
+  ## SEE:  Ellison, G. (1993). Learning, local interaction, and coordination. 
+  ##       Econometrica: Journal of the Econometric Society, 1047-1071.
   a = 1/pstar - 1
   b = 1
-
-  if(length(memory)<1) { stop("Zero length response error..") }
   
-    
+  ## MEAUSRE FREQUENCY OF EACH ITEM IN MEMPRY  
   mytab = table(memory)
+  
+  ## MULTIPLY FREQUENCY BY PAYOFF FOR EXPECTED PAYOFF
   mytab = mytab*(c(a,b)[as.numeric(names(mytab))])
   
-  #if(length(mytab)==0) return(list(response=sample(1:100000,1), single=T))
-  if(length(mytab)==0) {
-    print(c("Memory:", memory))
-    print(c("Mytab:", mytab))
-    stop("memory error..")
-  }
-  
-  response=as.numeric(
-    names(mytab[
-      which(
-        max(as.numeric(mytab)) == as.numeric(mytab)
-      )
-      ])
-  )
+  ## BEST RESPONSE IS THE ONE WITH THE MAX EXPECTED PAYOFF
+  response=as.numeric(names(mytab[which.max(mytab)]))
 
+  ## RANDOMLY SELECT FORA A TIE
   if(length(response)>1) response=sample(response, 1)
   
-  if(length(response)<1) { stop("zero length response error..") }
-  
-  if(is.na(response)) { stop("NA response error..") }
-
-  
+  ## RETURN response
   response
 }
 
