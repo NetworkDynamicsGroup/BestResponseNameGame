@@ -3,6 +3,13 @@
 ###   WRITTEN BY JOSHUA BECKER www.joshua-becker.com    ###
 ####                                                   ####
 ###########################################################
+
+
+### This code demonstrates the model published in:
+### Centola, D., Becker, J., Brackbill, D., & Baronchelli, A. (2018).
+### Experimental evidence for tipping points in social convention. 
+### Science, 360(6393), 1116-1119.
+
 rm(list=ls())
 library(igraph)
 
